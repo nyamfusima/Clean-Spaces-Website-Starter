@@ -321,15 +321,38 @@ preconnect. Fluid scale via `clamp()`.
 
 Static output. `npm run build` emits `dist/`, deployable anywhere.
 
-**Netlify:** build `npm run build`, publish `dist`.
-**Vercel:** framework preset Vite, output `dist`.
-**Cloudflare Pages:** build `npm run build`, output `dist`.
+**Framework preset: Vite.** That is the only preset to pick, on every host that
+asks. This is a single page with hash anchors and no client-side router, so do
+not add SPA rewrite or catch-all redirect rules; they are unnecessary here.
+
+| Setting          | Value           |
+| ---------------- | --------------- |
+| Framework preset | Vite            |
+| Install command  | `npm install`   |
+| Build command    | `npm run build` |
+| Output directory | `dist`          |
+| Node version     | 22 (20.19+ also works) |
+
+Node matters: Vite 8 requires `^20.19.0 || >=22.12.0`, so a host still
+defaulting to Node 18 will fail the build. This repo pins it for you in three
+places, so most hosts need no manual setting:
+
+- `engines.node` in `package.json`
+- `.nvmrc` (Netlify, Vercel and Render read this)
+- `NODE_VERSION` in `netlify.toml`
+
+Committed config files: `vercel.json` and `netlify.toml` already contain the
+settings above, so those two hosts configure themselves on import.
+
+**Cloudflare Pages:** preset Vite, build `npm run build`, output `dist`, and set
+the `NODE_VERSION` environment variable to `22`.
+
 **GitHub Pages:** set `base: '/<repo-name>/'` in `vite.config.ts` first, then
-publish `dist`.
+publish `dist`. Skip this if you are deploying to a custom domain or a
+`<user>.github.io` root repo.
 
-After deploying, update the domain in `index.html` (see "Before this goes live").
-
----
+After deploying, update the domain in `index.html` (see "Before this goes live")
+or the canonical URL and the social preview image will not resolve.
 
 ## Verification performed
 
@@ -349,6 +372,14 @@ Chrome at 1440×900, 834×1112 and 390×844:
 - Under reduced motion, all 30 reveal elements are opaque while off-screen.
 - Contrast ratios computed for 17 foreground/background pairs; the two failures
   found (`--warm-grey` and `--brass` as text) were fixed with the `-ink` tokens.
+
+Also verified across mobile, tablet and desktop:
+
+- Project videos become a swipeable rail below 700 px (6 cards, snap points,
+  labelled region, keyboard reachable) and return to the staggered grid above
+  it. Style directions is a rail at every width. Neither causes page overflow.
+- The floating WhatsApp control is the standard badge: a 56 px green circle
+  (52 px on mobile) with the white glyph and no text label.
 
 Also verified after the design pass:
 

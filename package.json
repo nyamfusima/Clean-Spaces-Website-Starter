@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Clean Spaces \u00e2\u20ac\u201d kitchen design, built-in cabinetry and interiors.",
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
