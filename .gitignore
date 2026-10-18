@@ -1,0 +1,11 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vite
+*.log
+
+# Source footage for the hero montage: large, and not part of the build.
+media/hero-source/*
+!media/hero-source/README.md

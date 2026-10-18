@@ -1,0 +1,64 @@
+/* Clean Spaces design tokens.
+   Palette supplied by the client, extended with tones sampled from the
+   marble-textured house mark in the logo. */
+:root {
+  /* --- brand palette --- */
+  --stone-beige: #d9d0c3;
+  --warm-grey: #a7a59a;
+  --taupe: #6b665e;
+  --charcoal: #2b2b2b;
+  --white: #ffffff;
+
+  /* --- sampled from the logo artwork --- */
+  --marble-cream: #d7c9b4;
+  --marble-vein: #a5947d;
+  --brand-canvas: #0e0d0b;
+  --brass: #a88257;
+  /* Darkened variants for text: the palette tones above are decorative and
+     do not reach 4.5:1 on the light surfaces. */
+  --brass-ink: #87643b;
+  --warm-grey-ink: #6f6b61;
+
+  /* --- surfaces --- */
+  --shell: #faf8f5;
+  --sand: #f2ede6;
+  --stone-wash: #ebe5db;
+  --ink: var(--charcoal);
+  --ink-soft: #4a463f;
+  --muted: var(--taupe);
+  --line: #e3dcd2;
+  --line-strong: #d3c9bb;
+
+  /* --- type --- */
+  --font-display: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  --step-eyebrow: 0.6875rem;
+  --step-small: 0.8125rem;
+  --step-body: 0.9375rem;
+  --step-lead: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  --step-h3: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+  --step-h2: clamp(2rem, 1.5rem + 2.2vw, 3.5rem);
+  --step-h1: clamp(2.5rem, 1.6rem + 4vw, 5.25rem);
+
+  /* --- space --- */
+  --gutter: clamp(1.25rem, 5vw, 5.5rem);
+  --section-y: clamp(4.5rem, 9vw, 9rem);
+  --max-w: 1440px;
+
+  /* --- motion --- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 180ms;
+  --dur: 420ms;
+  --dur-slow: 900ms;
+
+  --shadow-soft: 0 18px 50px rgba(43, 43, 43, 0.09);
+  --shadow-lift: 0 26px 70px rgba(43, 43, 43, 0.16);
+  --header-h: 84px;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --header-h: 68px;
+  }
+}

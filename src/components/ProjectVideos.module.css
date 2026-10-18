@@ -1,0 +1,217 @@
+.videos {
+  background: var(--sand);
+}
+
+.intro {
+  max-width: 46ch;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.heading {
+  font-size: var(--step-h2);
+}
+
+.heading em {
+  font-style: normal;
+  color: var(--taupe);
+}
+
+.lede {
+  margin-top: 1.25rem;
+  font-size: var(--step-body);
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.follow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--line-strong);
+  font-size: var(--step-small);
+  font-weight: 600;
+  transition:
+    color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+
+.follow:hover {
+  color: var(--taupe);
+  border-color: var(--taupe);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+/* Offset the middle column so the portrait clips read as a composed set
+   rather than a uniform row of cards. */
+@media (min-width: 1000px) {
+  .grid > *:nth-child(3n + 2) {
+    margin-top: 3.5rem;
+  }
+}
+
+.grid > * {
+  display: flex;
+}
+
+.card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.facade {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: var(--stone-wash);
+  cursor: pointer;
+  overflow: hidden;
+  aspect-ratio: 9 / 16;
+}
+
+.facade img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease);
+}
+
+.facade:hover img,
+.facade:focus-visible img {
+  transform: scale(1.04);
+}
+
+.veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(14, 13, 11, 0.5), rgba(14, 13, 11, 0) 42%);
+}
+
+.play {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  background: var(--shell);
+  color: var(--charcoal);
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+
+.facade:hover .play,
+.facade:focus-visible .play {
+  background: var(--charcoal);
+  color: var(--shell);
+}
+
+.frame {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border: 0;
+  display: block;
+  background: var(--brand-canvas);
+}
+
+.body {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.caption {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 0.6rem;
+  font-size: var(--step-eyebrow);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--warm-grey-ink);
+}
+
+.source {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.source:hover {
+  color: var(--charcoal);
+}
+
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* On small screens the clips become a swipeable rail. The next card is
+   deliberately left part-visible, which is what signals that it slides. */
+@media (max-width: 700px) {
+  .grid {
+    display: flex;
+    grid-template-columns: none;
+    gap: 0.9rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    margin-right: calc(var(--gutter) * -1);
+    padding-right: var(--gutter);
+    padding-bottom: 0.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+
+  .grid::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .grid::-webkit-scrollbar-track {
+    background: var(--line);
+  }
+
+  .grid::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+  }
+
+  .grid:focus-visible {
+    outline: 2px solid var(--brass);
+    outline-offset: 4px;
+  }
+
+  .grid > * {
+    flex: 0 0 76%;
+    scroll-snap-align: start;
+  }
+
+  .intro {
+    max-width: none;
+  }
+}

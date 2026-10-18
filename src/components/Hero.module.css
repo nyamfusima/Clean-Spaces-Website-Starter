@@ -1,0 +1,203 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: var(--charcoal);
+  isolation: isolate;
+}
+
+.media,
+.media .video,
+.media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 58%;
+}
+
+/* Its own stacking context, so the video and the veil layer against each
+   other inside the media box and never paint over the headline. */
+.media {
+  z-index: 0;
+  isolation: isolate;
+}
+
+.media .video {
+  z-index: 1;
+}
+
+.media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(to top, rgba(18, 17, 15, 0.84) 0%, rgba(18, 17, 15, 0.46) 40%, rgba(18, 17, 15, 0.26) 66%, rgba(18, 17, 15, 0.58) 100%),
+    linear-gradient(to right, rgba(18, 17, 15, 0.62), rgba(18, 17, 15, 0.08) 68%);
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding-top: calc(var(--header-h) + 4rem);
+  padding-bottom: clamp(3.5rem, 7vw, 6rem);
+}
+
+.copy {
+  max-width: 54ch;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1.5rem;
+  font-size: var(--step-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stone-beige);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--marble-cream);
+}
+
+.title {
+  font-size: var(--step-h1);
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
+.title em {
+  font-style: normal;
+  color: var(--stone-beige);
+}
+
+.lead {
+  max-width: 48ch;
+  font-size: var(--step-lead);
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.84);
+  margin-bottom: 2.5rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 1.05rem 1.9rem;
+  font-size: var(--step-small);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.primary {
+  background: var(--white);
+  color: var(--charcoal);
+}
+
+.primary:hover {
+  background: var(--stone-beige);
+  transform: translateY(-2px);
+}
+
+.secondary {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: var(--white);
+}
+
+.secondary:hover {
+  border-color: var(--white);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.scrollCue {
+  position: absolute;
+  right: var(--gutter);
+  bottom: clamp(3.5rem, 7vw, 6rem);
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: var(--step-eyebrow);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.scrollCue svg {
+  animation: nudge 2.4s var(--ease) infinite;
+}
+
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+/* ---- entrance ---- */
+.fade {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: riseIn 1s var(--ease) forwards;
+}
+
+@keyframes riseIn {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .scrollCue svg {
+    animation: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    min-height: 92svh;
+  }
+
+  .scrollCue {
+    display: none;
+  }
+
+  .actions a {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}

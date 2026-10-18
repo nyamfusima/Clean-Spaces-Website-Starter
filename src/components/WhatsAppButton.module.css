@@ -1,0 +1,54 @@
+/* The standard WhatsApp badge: green circle, white glyph, no label. */
+.button {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 6px 22px rgba(14, 13, 11, 0.26);
+  opacity: 0;
+  transform: translateY(14px) scale(0.94);
+  pointer-events: none;
+  transition:
+    opacity var(--dur) var(--ease),
+    transform var(--dur) var(--ease),
+    background-color var(--dur) var(--ease);
+}
+
+.button[data-shown='true'] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.button:hover {
+  background: #1fbb59;
+  transform: scale(1.05);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 560px) {
+  .button {
+    width: 52px;
+    height: 52px;
+    right: 1rem;
+    bottom: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button:hover,
+  .button:active {
+    transform: none;
+  }
+}

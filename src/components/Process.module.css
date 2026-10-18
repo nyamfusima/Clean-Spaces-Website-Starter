@@ -1,0 +1,114 @@
+.process {
+  background: var(--sand);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(2.5rem, 6vw, 6rem);
+  /* Grid items stretch by default, which gives the sticky child room to
+     travel alongside the step list. */
+}
+
+.intro {
+  position: sticky;
+  top: calc(var(--header-h) + 2.5rem);
+}
+
+.heading {
+  font-size: var(--step-h2);
+  max-width: 13ch;
+}
+
+.heading em {
+  font-style: normal;
+  color: var(--taupe);
+}
+
+.note {
+  margin-top: 1.5rem;
+  max-width: 34ch;
+  font-size: var(--step-body);
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.figure {
+  margin: clamp(1.75rem, 3vw, 2.5rem) 0 0;
+}
+
+.figure img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.figure figcaption {
+  margin-top: 0.75rem;
+  font-size: var(--step-small);
+  color: var(--muted);
+}
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line-strong);
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  gap: 1.25rem;
+  padding: clamp(1.4rem, 2.5vw, 2rem) 0;
+  border-bottom: 1px solid var(--line-strong);
+  transition: background-color var(--dur) var(--ease);
+}
+
+.step:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.number {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--brass-ink);
+  padding-top: 0.3rem;
+}
+
+.title {
+  font-size: var(--step-h3);
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.copy {
+  font-size: var(--step-small);
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 52ch;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .intro {
+    position: static;
+  }
+
+  .heading {
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .step {
+    grid-template-columns: 2.5rem 1fr;
+    gap: 0.9rem;
+  }
+}

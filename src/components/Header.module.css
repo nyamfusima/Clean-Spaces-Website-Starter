@@ -1,0 +1,226 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.header[data-solid='true'] {
+  background: rgba(250, 248, 245, 0.92);
+  backdrop-filter: blur(14px);
+  border-bottom-color: var(--line);
+  box-shadow: 0 1px 24px rgba(43, 43, 43, 0.05);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  height: var(--header-h);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Both lockups are stacked and cross-faded, so the logo never pops as the
+   header changes from transparent to solid. */
+.logoStack {
+  position: relative;
+  display: block;
+}
+
+.logoReversed,
+.logoPrimary {
+  transition: opacity var(--dur) var(--ease);
+}
+
+.logoPrimary {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.header[data-solid='true'] .logoReversed {
+  opacity: 0;
+}
+
+.header[data-solid='true'] .logoPrimary {
+  opacity: 1;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 2.4vw, 2.5rem);
+}
+
+.link {
+  position: relative;
+  font-size: var(--step-small);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--white);
+  padding-block: 0.4rem;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.header[data-solid='true'] .link {
+  color: var(--ink-soft);
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--dur) var(--ease);
+}
+
+.link:hover::after,
+.link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.4rem;
+  font-size: var(--step-small);
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  color: var(--white);
+  background: transparent;
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.cta:hover {
+  background: var(--white);
+  color: var(--charcoal);
+  transform: translateY(-1px);
+}
+
+.header[data-solid='true'] .cta {
+  border-color: var(--charcoal);
+  color: var(--charcoal);
+}
+
+.header[data-solid='true'] .cta:hover {
+  background: var(--charcoal);
+  color: var(--white);
+}
+
+/* ---------------- mobile ---------------- */
+.toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--white);
+}
+
+.header[data-solid='true'] .toggle,
+.header[data-open='true'] .toggle {
+  color: var(--charcoal);
+}
+
+/* Absolute, not fixed: the solid header sets `backdrop-filter`, which makes it
+   the containing block for fixed descendants and would collapse this panel to
+   the height of the bar. */
+.panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: calc(100svh - var(--header-h));
+  background: var(--shell);
+  padding: 2rem var(--gutter) 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  overflow-y: auto;
+  animation: slideDown var(--dur) var(--ease);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.panelLink {
+  padding: 1.05rem 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--charcoal);
+}
+
+.panelCta {
+  margin-top: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1.05rem 1.4rem;
+  background: var(--charcoal);
+  color: var(--white);
+  font-size: var(--step-small);
+  font-weight: 600;
+}
+
+.panelWhatsapp {
+  margin-top: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1.05rem 1.4rem;
+  border: 1px solid var(--line-strong);
+  color: var(--ink-soft);
+  font-size: var(--step-small);
+  font-weight: 600;
+}
+
+@media (max-width: 960px) {
+  .nav {
+    display: none;
+  }
+
+  .toggle {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 961px) {
+  .panel {
+    display: none;
+  }
+}

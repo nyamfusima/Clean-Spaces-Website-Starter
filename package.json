@@ -1,0 +1,26 @@
+{
+  "name": "clean-spaces-website",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Clean Spaces \u00e2\u20ac\u201d kitchen design, built-in cabinetry and interiors.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "hero:montage": "node scripts/build-hero-montage.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^1.59.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4"
+  }
+}

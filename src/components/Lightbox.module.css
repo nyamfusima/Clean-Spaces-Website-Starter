@@ -1,0 +1,123 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: rgba(14, 13, 11, 0.93);
+  backdrop-filter: blur(6px);
+  animation: fadeIn var(--dur) var(--ease);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+
+.dialog {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.5rem, 2vw, 1.5rem);
+  max-width: min(1400px, 100%);
+  width: 100%;
+}
+
+/* fit-content so the figure hugs the picture and the caption lines up with it */
+.figure {
+  margin: 0;
+  flex: 0 1 auto;
+  min-width: 0;
+  width: fit-content;
+  max-width: 100%;
+  animation: popIn var(--dur) var(--ease);
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+}
+
+.figure img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 80svh;
+  margin-inline: auto;
+}
+
+.caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-size: var(--step-small);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.counter {
+  font-size: var(--step-eyebrow);
+  letter-spacing: 0.16em;
+  color: var(--stone-beige);
+}
+
+.close,
+.nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--white);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+
+.close:hover,
+.nav:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.close {
+  position: absolute;
+  top: -58px;
+  right: 0;
+}
+
+@media (max-width: 760px) {
+  .dialog {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .close {
+    top: -52px;
+  }
+
+  .figure {
+    flex: 1 0 100%;
+    order: 1;
+  }
+
+  .prev {
+    order: 2;
+  }
+
+  .next {
+    order: 3;
+  }
+}
