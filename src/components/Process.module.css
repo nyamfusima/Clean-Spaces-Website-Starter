@@ -58,12 +58,36 @@
 }
 
 .step {
+  position: relative;
   display: grid;
   grid-template-columns: 3.5rem 1fr;
   gap: 1.25rem;
   padding: clamp(1.4rem, 2.5vw, 2rem) 0;
   border-bottom: 1px solid var(--line-strong);
   transition: background-color var(--dur) var(--ease);
+}
+
+.step::before {
+  content: '';
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 1px;
+  background: var(--brass-ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s var(--ease);
+}
+
+.step:hover::before {
+  transform: scaleX(1);
+}
+
+.number {
+  transition: color var(--dur) var(--ease);
+}
+
+.step:hover .number {
+  color: var(--charcoal);
 }
 
 .step:hover {

@@ -23,6 +23,12 @@
   justify-content: space-between;
   gap: 1.5rem;
   height: var(--header-h);
+  transition: height var(--dur) var(--ease);
+}
+
+/* Condense once the page has moved, so the bar takes less of the screen. */
+.header[data-solid='true'] .inner {
+  height: calc(var(--header-h) - 14px);
 }
 
 .brand {
@@ -36,6 +42,12 @@
 .logoStack {
   position: relative;
   display: block;
+  transform-origin: left center;
+  transition: transform var(--dur) var(--ease);
+}
+
+.header[data-solid='true'] .logoStack {
+  transform: scale(0.88);
 }
 
 .logoReversed,

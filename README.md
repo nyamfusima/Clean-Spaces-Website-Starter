@@ -32,9 +32,10 @@ These are the only things still outstanding. Everything else is wired up.
    (`hello@cleanspaces.example`) and `emailConfirmed: false`. While that flag is
    false the site honestly shows "Email to be confirmed" and the email button on
    the form is disabled. Set the real address and flip the flag to `true`.
-2. **Live domain.** `index.html` uses `https://cleanspaces.example` in the
-   canonical URL and the Open Graph / Twitter tags. Replace it, or the social
-   preview image will not resolve.
+2. **Live domain.** Set `VITE_SITE_URL` in `.env` to the real domain. The
+   canonical URL, the Open Graph tags and the structured data are all built
+   from it, so until it is set, shared links show no preview card. See
+   "Link previews" below.
 3. **Service area.** `site.serviceArea` is `null`, so nothing is claimed. Set it
    to a string and it appears in the footer.
 4. **Confirm the service list.** The four services come from the client's own
@@ -317,6 +318,36 @@ preconnect. Fluid scale via `clamp()`.
 
 ---
 
+## Link previews (WhatsApp, Facebook, LinkedIn)
+
+When someone shares the link, the preview shows a 1200 x 630 card with the
+Clean Spaces logo, the tagline and the service list over a kitchen photograph,
+plus the page title and description. The card lives at
+`public/images/og/og-image.jpg`.
+
+**This only works once the real domain is set.** Social crawlers need absolute
+URLs, so the card, the canonical URL and the structured data are all built from
+`VITE_SITE_URL`:
+
+```bash
+# .env
+VITE_SITE_URL=https://your-real-domain.co.za
+```
+
+Vite substitutes it into `index.html` at build time. Until it points at a live,
+reachable domain, shared links show a bare link with no image. Set it, rebuild,
+redeploy, then re-scrape:
+
+- Facebook and WhatsApp: https://developers.facebook.com/tools/debug/
+- LinkedIn: https://www.linkedin.com/post-inspector/
+
+WhatsApp caches previews aggressively, so re-scraping through the Facebook
+debugger is usually what makes an updated card appear.
+
+To change the card, edit the title and description meta tags in `index.html`
+and replace `public/images/og/og-image.jpg` (keep it 1200 x 630 and under
+roughly 300 kB, which is what WhatsApp will fetch).
+
 ## Deployment
 
 Static output. `npm run build` emits `dist/`, deployable anywhere.
@@ -380,6 +411,10 @@ Also verified across mobile, tablet and desktop:
   it. Style directions is a rail at every width. Neither causes page overflow.
 - The floating WhatsApp control is the standard badge: a 56 px green circle
   (52 px on mobile) with the white glyph and no text label.
+- At 320, 360, 390, 414 and 768 px: no horizontal overflow, no interactive
+  target under 36 px, and no text under 11 px.
+- Animations run normally and are switched off under `prefers-reduced-motion`,
+  confirmed by reading computed styles in both states.
 
 Also verified after the design pass:
 
@@ -417,5 +452,19 @@ section is composed differently:
 Corners are square throughout, there are no gradients other than the neutral
 overlays that make text legible over photographs, and icons are used only where
 they carry meaning (WhatsApp, TikTok, navigation, the lightbox and the play
-control). Motion is limited to one scroll reveal, a hero entrance, image zoom
-on hover and the header transition, all disabled under reduced motion.
+control).
+
+Motion, all of it disabled or made instant under `prefers-reduced-motion`:
+
+| Where | What |
+| ----- | ---- |
+| Hero image | A 32 second scale drift, giving the still some of the life a video would |
+| Hero copy | Staggered entrance on load |
+| Header | Condenses from 84 px to 70 px on scroll, logo scales to 0.88, background fades in |
+| Section content | Fade and lift on first scroll past, staggered across gallery tiles |
+| Eyebrow rules | Draw in from the left as their section reveals |
+| Service rules | Draw in one after another down the list |
+| Process rows | A brass rule draws under the row on hover |
+| Images | Slow zoom on hover, captions slide up |
+| Buttons | Arrow icons nudge up and to the right on hover |
+| Lightbox | Fade with a slight scale on open |

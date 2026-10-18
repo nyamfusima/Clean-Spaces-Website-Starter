@@ -13,9 +13,9 @@
     <meta name="theme-color" content="#FAF8F5" />
     <meta name="color-scheme" content="light" />
 
-    <!-- TODO (client): replace https://cleanspaces.example with the live domain
-         so the canonical URL and social preview image resolve correctly. -->
-    <link rel="canonical" href="https://cleanspaces.example/" />
+    <!-- The live domain comes from VITE_SITE_URL in .env. Social previews and
+         the canonical URL only resolve once that is set to the real domain. -->
+    <link rel="canonical" href="%VITE_SITE_URL%/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Clean Spaces" />
@@ -24,10 +24,12 @@
       property="og:description"
       content="Kitchens, built-in cabinetry and interiors, designed and installed by one team."
     />
-    <meta property="og:url" content="https://cleanspaces.example/" />
-    <meta property="og:image" content="https://cleanspaces.example/images/og/og-image.jpg" />
+    <meta property="og:url" content="%VITE_SITE_URL%/" />
+    <meta property="og:image" content="%VITE_SITE_URL%/images/og/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:locale" content="en_ZA" />
     <meta property="og:image:alt" content="A contemporary kitchen with oak cabinetry and a stone-topped island, with the Clean Spaces logo." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Clean Spaces | Kitchen Design and Built-In Cabinetry" />
@@ -35,7 +37,7 @@
       name="twitter:description"
       content="Kitchens, built-in cabinetry and interiors, designed and installed by one team."
     />
-    <meta name="twitter:image" content="https://cleanspaces.example/images/og/og-image.jpg" />
+    <meta name="twitter:image" content="%VITE_SITE_URL%/images/og/og-image.jpg" />
 
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
@@ -59,8 +61,8 @@
         "name": "Clean Spaces",
         "description": "Kitchen design, built-in cabinetry, installation and interior renovations.",
         "telephone": "+27648075408",
-        "image": "https://cleanspaces.example/images/og/og-image.jpg",
-        "logo": "https://cleanspaces.example/android-chrome-512x512.png"
+        "image": "%VITE_SITE_URL%/images/og/og-image.jpg",
+        "logo": "%VITE_SITE_URL%/android-chrome-512x512.png"
       }
     </script>
   </head>

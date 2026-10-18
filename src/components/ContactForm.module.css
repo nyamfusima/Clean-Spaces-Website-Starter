@@ -36,6 +36,7 @@
 .detail {
   display: inline-flex;
   align-items: center;
+  min-height: 56px;
   gap: 0.85rem;
   padding: 1rem 1.15rem;
   background: var(--shell);

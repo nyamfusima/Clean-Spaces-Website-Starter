@@ -94,6 +94,14 @@ select {
   width: 28px;
   height: 1px;
   background: var(--line-strong);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s var(--ease) 0.15s;
+}
+
+.reveal[data-visible='true'] .eyebrow::before,
+.reveal[data-visible='true'].eyebrow::before {
+  transform: scaleX(1);
 }
 
 .lead {
@@ -150,5 +158,9 @@ select {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+
+  .eyebrow::before {
+    transform: scaleX(1);
   }
 }

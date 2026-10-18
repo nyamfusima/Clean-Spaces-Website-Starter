@@ -27,7 +27,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  margin-top: 1.5rem;
+  min-height: 44px;
+  margin-top: 1.25rem;
   padding-bottom: 0.4rem;
   border-bottom: 1px solid var(--line-strong);
   font-size: var(--step-small);
@@ -159,7 +160,15 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  min-height: 44px;
+  padding-left: 0.5rem;
   transition: color var(--dur-fast) var(--ease);
+}
+
+.meta > span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 .source:hover {

@@ -31,6 +31,11 @@
   gap: 1rem;
 }
 
+/* The Reveal wrapper is the grid item, so the tile fills it. */
+.grid > * {
+  min-width: 0;
+}
+
 .tile {
   position: relative;
   display: block;

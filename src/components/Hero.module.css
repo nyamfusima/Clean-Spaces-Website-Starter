@@ -26,6 +26,22 @@
   isolation: isolate;
 }
 
+/* A very slow drift, so the still has some of the life a video would give it. */
+.media img,
+.media .video {
+  animation: drift 32s var(--ease) infinite alternate;
+  will-change: transform;
+}
+
+@keyframes drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.07);
+  }
+}
+
 .media .video {
   z-index: 1;
 }
@@ -117,6 +133,16 @@
   color: var(--charcoal);
 }
 
+.primary svg,
+.secondary svg {
+  transition: transform var(--dur) var(--ease);
+}
+
+.primary:hover svg,
+.secondary:hover svg {
+  transform: translate(3px, -3px);
+}
+
 .primary:hover {
   background: var(--stone-beige);
   transform: translateY(-2px);
@@ -176,6 +202,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .media img,
+  .media .video {
+    animation: none;
+    transform: none;
+  }
+
   .fade {
     opacity: 1;
     transform: none;

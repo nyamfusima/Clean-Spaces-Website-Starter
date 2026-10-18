@@ -49,18 +49,17 @@ export function ProjectGallery() {
           </div>
         </Reveal>
 
-        <Reveal>
-          <div className={styles.grid}>
-            {LAYOUT.map((item, index) => {
-              const image = byId.get(item.id);
-              if (!image) return null;
-              const spanClass = item.span ? styles[item.span] : '';
+        <div className={styles.grid}>
+          {LAYOUT.map((item, index) => {
+            const image = byId.get(item.id);
+            if (!image) return null;
+            const spanClass = item.span ? styles[item.span] : '';
 
-              return (
+            return (
+              <Reveal key={image.id} className={spanClass} delay={index * 70}>
                 <button
-                  key={image.id}
                   type="button"
-                  className={`${styles.tile} ${spanClass}`}
+                  className={styles.tile}
                   onClick={() => setOpenIndex(index)}
                   aria-label={`View larger: ${image.caption}`}
                 >
@@ -79,10 +78,10 @@ export function ProjectGallery() {
                     <Maximize2 size={16} className={styles.zoom} aria-hidden="true" />
                   </span>
                 </button>
-              );
-            })}
-          </div>
-        </Reveal>
+              </Reveal>
+            );
+          })}
+        </div>
 
         <Reveal>
           <div className={styles.renders}>

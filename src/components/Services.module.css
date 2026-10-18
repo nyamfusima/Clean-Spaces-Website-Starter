@@ -58,15 +58,49 @@
 }
 
 .item {
+  position: relative;
   display: grid;
   grid-template-columns: 3.25rem minmax(0, 1fr);
   gap: 1.25rem;
   padding: clamp(1.5rem, 2.6vw, 2.25rem) 0;
-  border-top: 1px solid var(--line-strong);
+}
+
+/* The rule draws itself in as the list is revealed. */
+.item::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: var(--line-strong);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s var(--ease);
+}
+
+:global(.reveal[data-visible='true']) .item::before {
+  transform: scaleX(1);
+}
+
+.list > li:nth-child(2) .item::before {
+  transition-delay: 0.1s;
+}
+
+.list > li:nth-child(3) .item::before {
+  transition-delay: 0.2s;
+}
+
+.list > li:nth-child(4) .item::before {
+  transition-delay: 0.3s;
 }
 
 .list > li:last-child .item {
   border-bottom: 1px solid var(--line-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item::before {
+    transform: scaleX(1);
+  }
 }
 
 .number {
